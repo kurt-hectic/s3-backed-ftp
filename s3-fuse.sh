@@ -38,14 +38,18 @@ if [ ! -f /etc/ssh/ssh_host_dsa_key ]; then
   ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa
 fi
 
+chmod 0600 /etc/ssh/ssh_host_rsa_key /etc/ssh/ssh_host_dsa_key
+
 
 # Update the vsftpd.conf file to include the IP address if running on an EC2 instance
 if curl -s http://instance-data.ec2.internal > /dev/null ; then
   IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)
   sed -i "s/^pasv_address=/pasv_address=$IP/" /etc/vsftpd.conf
+elif [ $EXTERNAL_IP ]; then
+  echo "setting external IP address og vsftpd to $EXTERNAL_IP"
+  sed -i "s/^pasv_address=/pasv_address=$EXTERNAL_IP/" /etc/vsftpd.conf
 else
   echo "Warning. Not setting external IP address"
-  sed -i "s/^pasv_address=/pasv_address=127.0.0.1/" /etc/vsftpd.conf
   #exit 1
 fi
 

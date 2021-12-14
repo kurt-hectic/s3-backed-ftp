@@ -54,10 +54,14 @@ ADD users.sh /usr/local/
 
 ADD add_users_in_container.sh /usr/local/
 
+ADD entry.sh /usr/local/
+
+RUN chmod +x /usr/local/add_users_in_container.sh /usr/local/users.sh /usr/local/s3-fuse.sh /usr/local/entry.sh
+
 RUN echo "/usr/sbin/nologin" >> /etc/shells
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 EXPOSE 21 22 
 
-CMD ["/usr/bin/supervisord"]
+CMD ["/usr/local/entry.sh"]
