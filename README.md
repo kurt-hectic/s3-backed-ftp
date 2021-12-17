@@ -20,7 +20,7 @@ To run:
 
     - `docker build --rm -t <docker/tag> path/to/dockerfile/folder`
 
-    - `docker run --rm -p 21-22:21_22 -p 60000-60100:60000-60100  --name <name> --cap-add SYS_ADMIN --device /dev/fuse  -v %cd%/vsftpd.key:/etc/ssl/private/vsftpd.key -v %cd%/vsftpd.crt:/etc/ssl/certs/vsftpd.crt  -v %cd%/ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key -v %cd%/ssh_host_dsa_key:/etc/ssh/ssh_host_dsa_key --env-file env.list <docker/tag>`
+    - `docker run --rm -p 21-22:21-22 -p 60000-60100:60000-60100  --name <name> --cap-add SYS_ADMIN --device /dev/fuse  -v %cd%/vsftpd.key:/etc/ssl/private/vsftpd.key -v %cd%/vsftpd.crt:/etc/ssl/certs/vsftpd.crt  -v %cd%/ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key -v %cd%/ssh_host_dsa_key:/etc/ssh/ssh_host_dsa_key --env-file env.list <docker/tag>`
 	
     
 ## Environment Variables
