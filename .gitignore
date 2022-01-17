@@ -3,3 +3,4 @@ ssh_host_rsa_key
 vsftpd.crt
 vsftpd.key
 env.list
+.env
