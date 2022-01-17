@@ -2,7 +2,7 @@ version: "3.9"
 services:
   superftp:
     build: .
-    ports: 
+    ports:
        - "20:20"
        - "21:21"
        - "60000-60100:60000-60100"
@@ -11,9 +11,9 @@ services:
       - env.list
 
     volumes:
-      - ./vsftpd.key:/etc/ssl/private/vsftpd.key 
-      - ./vsftpd.crt:/etc/ssl/certs/vsftpd.crt 
-      - ./ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key 
+      - ./vsftpd.key:/etc/ssl/private/vsftpd.key
+      - ./vsftpd.crt:/etc/ssl/certs/vsftpd.crt
+      - ./ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key
       - ./ssh_host_dsa_key:/etc/ssh/ssh_host_dsa_key
 
     devices:
@@ -27,4 +27,3 @@ services:
       options:
         loki-url: ${LOKI_URL}
         labels: container_name,host
-
