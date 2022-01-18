@@ -1,16 +1,16 @@
-FROM phusion/baseimage:master
+FROM ubuntu:20.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 #add this for mustache templates in config files
-ADD https://raw.githubusercontent.com/tests-always-included/mo/master/mo /usr/bin/
-RUN chmod a+rx /usr/bin/mo
+#ADD https://raw.githubusercontent.com/tests-always-included/mo/master/mo /usr/bin/
+#RUN chmod a+rx /usr/bin/mo
+
 
 RUN apt-get update && \
     apt-get install -y gosu && \
     apt-get upgrade -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    apt-get clean 
 
 RUN apt-get -y update && apt-get -y install --no-install-recommends \
  automake \
@@ -29,6 +29,7 @@ RUN apt-get -y update && apt-get -y install --no-install-recommends \
  vsftpd \
  openssh-server \
  supervisor \
+ curl \
  && rm -rf /var/lib/apt/lists/*
  
 RUN python3 -m pip install awscli
@@ -39,6 +40,9 @@ RUN git clone https://github.com/s3fs-fuse/s3fs-fuse.git && \
     ./configure  && \ 
     make && \
     sudo make install
+
+RUN mkdir /var/run/sshd
+RUN chmod 0755 /var/run/sshd
 
 RUN mkdir -p /home/aws/s3bucket/
 
